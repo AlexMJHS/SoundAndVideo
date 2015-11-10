@@ -41,6 +41,74 @@ public class SoundActivity extends Activity implements Runnable
 
     private void setupListeners()
     {
-        startButton.setOnClickListener((v))
+        startButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                soundPlayer.start();
+            }
+        });
+
+        pauseButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                soundPlayer.pause();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View currentView)
+            {
+                soundPlayer.stop();
+                soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.SOUNDFILE NAME);
+            }
+        });
+
+        videoButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View currentView)
+            {
+                Intent myIntent = new Intent(currentView.getContext(), VideoActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
+
+        soundSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+        {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {}
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {}
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar,int progress, boolean fromUser)
+            {
+                if(fromUser)
+                {
+                    soundPlayer.seekTo(progress);
+                }
+            }
+        });
     }
 }
+
+/**
+ * Required since we are implementing Runnable.
+ * Allows the seekbar to update.
+ */
+
+    @Override
+    public void run()
+    {
+        int currentPosition = 0;
+        //Loading audio/video go to 9:25 to finish the code.
+    }
