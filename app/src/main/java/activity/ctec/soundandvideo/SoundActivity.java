@@ -31,7 +31,7 @@ public class SoundActivity extends Activity implements Runnable
         stopButton = (Button) findViewById(R.id.stopButton);
         soundSeekBar = (SeekBar) findViewById(R.id.soundSeekBar);
         videoButton = (Button) findViewById(R.id.videoButton);
-        soundPlayer = MediaPlayer.create(this.getBaseContext(), R.raw.SOUNDFILE NAME);
+        soundPlayer = MediaPlayer.create(this.getBaseContext(), R.raw.dunked);
 
         setupListeners();
 
@@ -65,7 +65,7 @@ public class SoundActivity extends Activity implements Runnable
             public void onClick(View currentView)
             {
                 soundPlayer.stop();
-                soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.SOUNDFILE NAME);
+                soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.dunked);
             }
         });
 
@@ -99,7 +99,7 @@ public class SoundActivity extends Activity implements Runnable
             }
         });
     }
-}
+
 
 /**
  * Required since we are implementing Runnable.
@@ -110,5 +110,25 @@ public class SoundActivity extends Activity implements Runnable
     public void run()
     {
         int currentPosition = 0;
-        //Loading audio/video go to 9:25 to finish the code.
+        int soundTotal = soundPlayer.getDuration();
+        soundSeekBar.setMax(soundTotal);
+
+        while (soundPlayer != null && currentPosition < soundTotal)
+        {
+            try
+            {
+                Thread.sleep(300);
+                currentPosition = soundPlayer.getCurrentPosition();
+            }
+            catch(InterruptedException soundException)
+            {
+                return;
+            }
+            catch(Exception otherException)
+            {
+                return;
+            }
+            soundSeekBar.setProgress(currentPosition);
+        }
     }
+}
