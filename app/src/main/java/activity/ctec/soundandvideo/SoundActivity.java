@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.*;
+import android.graphics.Color;
 
 
 
@@ -18,6 +19,7 @@ public class SoundActivity extends Activity implements Runnable
     private Button videoButton;
     private MediaPlayer soundPlayer;
     private SeekBar soundSeekBar;
+    private RelativeLayout background;
     private Thread soundThread;
 
     @Override
@@ -39,6 +41,27 @@ public class SoundActivity extends Activity implements Runnable
         soundThread.start();
     }
 
+    private void changeBackgroundColor()
+    {
+        int redColor;
+        int greenColor;
+        int blueColor;
+
+        redColor = (int) (Math.random() * 256);
+        greenColor = (int) (Math.random() * 256);
+        blueColor = (int) (Math.random() * 256);
+
+        background.setBackgroundColor(Color.rgb(redColor, greenColor, blueColor));
+
+        redColor = (int) (Math.random() * 256);
+        greenColor = (int) (Math.random() * 256);
+        blueColor = (int) (Math.random() * 256);
+
+        startButton.setBackgroundColor(Color.rgb(redColor, greenColor, blueColor));
+        pauseButton.setBackgroundColor(Color.rgb(redColor, greenColor, blueColor));
+        stopButton.setBackgroundColor(Color.rgb(redColor, greenColor, blueColor));
+    }
+
     private void setupListeners()
     {
         startButton.setOnClickListener(new View.OnClickListener()
@@ -47,6 +70,7 @@ public class SoundActivity extends Activity implements Runnable
             public void onClick(View v)
             {
                 soundPlayer.start();
+                changeBackgroundColor();
             }
         });
 
@@ -56,6 +80,7 @@ public class SoundActivity extends Activity implements Runnable
             public void onClick(View v)
             {
                 soundPlayer.pause();
+                changeBackgroundColor();
             }
         });
 
@@ -66,6 +91,7 @@ public class SoundActivity extends Activity implements Runnable
             {
                 soundPlayer.stop();
                 soundPlayer = MediaPlayer.create(getBaseContext(), R.raw.dunked);
+                changeBackgroundColor();
             }
         });
 
@@ -98,6 +124,7 @@ public class SoundActivity extends Activity implements Runnable
                 }
             }
         });
+
     }
 
 
